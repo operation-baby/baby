@@ -18,7 +18,7 @@ import com.baby.cassandra.entity.Employee;
 
 public class MessageRouterTest {
 
-	@Test
+	//@Test
 	public void sendMessage() throws Exception {
 		// created ConnectionFactory object for creating connection
 		ConnectionFactory factory = new ActiveMQConnectionFactory("admin",
@@ -43,7 +43,7 @@ public class MessageRouterTest {
 		producer.send(msg);
 	}
 
-	@Test
+	//@Test
 	public void consumeMessage() throws Exception {
 		// created ConnectionFactory object for creating connection
 		ConnectionFactory factory = new ActiveMQConnectionFactory("admin",
