@@ -1,0 +1,23 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<camelContext id="dataIngestionFlow" xmlns="http://camel.apache.org/schema/spring"
+		autoStartup="true">
+
+		<onException>
+			<!-- This exception is not expected, hence no more retries pushing it 
+				to ingestion.DLQ Operations will take care of it.. -->
+			<exception>java.lang.Exception</exception>
+			<to uri="activemq:test.cassandra.DLQ" />
+		</onException>
+
+		<route id="messageRoute" autoStartup="true">
+			<from uri="activemq:test" />
+			<to uri="bean:messageRouter?method=onMessage" />
+		</route>
+
+	</camelContext>
+
+</beans>
